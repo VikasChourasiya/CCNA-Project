@@ -1,0 +1,70 @@
+-----Switch Etherchannel Congiguration-----
+
+-------Static Configuration--------
+en
+conf t
+host s1
+
+int range fa0/1 - 4
+channel-group 1 mode on
+exit
+
+
+
+-------PAGP Configuration---------
+
+-----Switch 1-------
+en
+conf t
+host s1
+
+int range fa0/1 - 4
+channel-protocol pagp
+channel-group 1 mode desirable
+exit
+
+exit
+wr
+
+-----Switch 2-------
+en
+conf t
+host s2
+
+int range fa0/1 - 4
+channel-protocol pagp
+channel-group 1 mode auto
+exit
+
+exit
+wr
+
+
+-------LACP Configuration---------
+
+-----Switch 1-------
+en
+conf t
+host s1
+
+int range fa0/1 - 4
+channel-protocol lacp
+channel-group 1 mode active
+exit
+
+exit
+wr
+
+-----Switch 2-------
+en
+conf t
+host s2
+
+int range fa0/1 - 4
+channel-protocol lacp
+channel-group 1 mode passive
+exit
+
+exit
+wr
+

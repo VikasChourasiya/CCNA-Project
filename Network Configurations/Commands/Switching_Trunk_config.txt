@@ -1,0 +1,85 @@
+Switch Configuration
+
+
+-----Creating Conectivity between different vlans-------
+
+----Switch1-----
+en
+conf t
+host s1
+
+vlan 10
+name accounts
+exit
+
+vlan 20
+name sales
+exit
+
+int f0/1
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/2
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/3
+switchport mode access
+switchport access vlan 20
+exit
+
+int f0/4
+switchport mode access
+switchport access vlan 20
+exit
+
+
+int f0/5
+switchport mode trunk
+switchport trunk allowed all
+s
+exit
+
+exit
+
+wr
+
+-----Switch2--------
+en
+conf t
+host s2
+
+vlan 10
+name accounts
+exit
+
+vlan 20
+name sales
+exit
+
+int f0/1
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/2
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/3
+switchport mode access
+switchport access vlan 20
+exit
+
+int f0/4
+switchport mode access
+switchport access vlan 20
+exit
+
+exit
+
+wr

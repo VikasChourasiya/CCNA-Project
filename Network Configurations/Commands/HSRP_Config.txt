@@ -1,0 +1,84 @@
+HSRP (Hot Standby Router Protocol)
+-----------------------------------------
+
+---BSNL----
+en
+conf t
+host BSNL
+
+int f0/0
+ip add 192.168.1.100 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+ip route 0.0.0.0 0.0.0.0 s0/0
+
+int f0/0
+standby 10 ip 192.168.1.150
+standby 10 priority 120
+standby 10 preempt
+exit
+
+exit
+
+wr
+
+
+
+---AIRTEL----
+en
+conf t
+host AIRTEL
+
+int f0/0
+ip add 192.168.1.200 255.255.255.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+ip route 0.0.0.0 0.0.0.0 s0/1
+
+int fa0/0
+standby 10 ip 192.168.1.150
+exit
+
+exit
+
+wr
+
+
+----SERVER-----
+
+en
+conf t
+host internet
+
+int s0/0
+ip add 10.0.0.2 255.0.0.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.2 255.0.0.0
+no shut
+exit
+
+ip route 0.0.0.0 0.0.0.0 s0/0
+ip route 0.0.0.0 0.0.0.0 s0/1
+
+exit
+
+wr

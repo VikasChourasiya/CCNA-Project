@@ -1,0 +1,63 @@
+NAT Static Configuration
+
+---Coperate Router---
+en
+conf t
+host coper
+
+int f0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+bandwidth 64
+exit
+
+ip route 0.0.0.0 0.0.0.0 10.0.0.2
+
+ip dhcp pool autoip
+default-router 192.168.1.1
+network 192.168.1.0 255.255.255.0
+
+exit
+
+
+access-list 5 permit 192.168.1.0 0.0.0.255
+ip nat pool dynat 5.5.5.1 5.5.5.3 netmask 255.0.0.0
+ip nat inside source list 5 pool dynat
+
+
+int f0/0
+ip nat inside
+exit
+
+int s0/0
+ip nat outside
+exit
+
+exit
+
+wr
+
+
+
+---Internet Router-----
+en
+conf t
+host Int
+
+
+int s0/0
+ip add 10.0.0.2 255.0.0.0
+no shut
+exit
+
+ip route 0.0.0.0 0.0.0.0 s0/0
+
+exit
+
+wr

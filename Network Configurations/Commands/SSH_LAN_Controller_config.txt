@@ -1,0 +1,36 @@
+SSH lab for Network controller
+
+Select ISR 4331 Router
+Select 3650 Multilayer Switch
+Select Network Controller from end devices
+Select the PC to configure network controller
+
+Give IP to both the routers.
+Give IP on VLAN 1 on both the switches.
+
+Configure the router and switched with ssh configuration given below.
+
+en
+conf t
+line vty 0 4
+login local
+transport input ssh
+exit
+
+username admin password admin
+ip domain-name sysap.com
+crypto key generate rsa
+
+2048
+
+
+ip ssh ver 2
+enable secret cisco
+line con 0
+password cisco
+login local
+exit
+
+exit
+wr
+

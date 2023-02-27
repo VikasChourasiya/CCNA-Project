@@ -1,0 +1,22 @@
+---Backup--and--Recovery------
+
+------Backup commands------
+R1#copy running-config tftp: 
+Address or name of remote host []? 192.168.1.100
+Destination filename [R1-confg]? Run
+
+R1#copy startup-config tftp:
+Address or name of remote host []? 192.168.1.100
+Destination filename [R1-confg]? start
+
+-----Recovery commands------
+
+R1#copy tftp running-config 
+Address or name of remote host []? 192.168.1.100
+Source filename []? run
+Destination filename [running-config]?
+
+R1#copy tftp startup-config 
+Address or name of remote host []? 192.168.1.100
+Source filename []? start
+Destination filename [startup-config]?

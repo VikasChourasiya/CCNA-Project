@@ -1,0 +1,110 @@
+ACL Standard Configuration
+situation1 - 192.168.1.3 should not communicate with 192.168.2.0
+		network.
+situation2 - 192.168.1.0 should not communicate with 192.168.3.0
+		network.
+
+-------Router 1--------------
+enable
+conf t
+host R1
+int fa0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+router eigrp 100
+network 10.0.0.0
+network 192.168.1.0
+no auto
+
+exit
+exit
+
+wr
+
+-------Router 2--------------
+enable
+conf t
+host R2
+int fa0/0
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.2 255.0.0.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+router eigrp 100
+network 10.0.0.0
+network 11.0.0.0
+network 192.168.2.0
+no auto
+
+exit
+
+access-list 10 deny 192.168.1.3 0.0.0.0
+access-list 10 permit any
+
+int f0/0
+ip access-group 10 out
+
+exit
+exit
+
+wr
+
+
+-------Router 3--------------
+enable
+conf t
+host R3
+int fa0/0
+ip add 192.168.3.1 255.255.255.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.2 255.0.0.0
+no shut
+exit
+
+router eigrp 100
+network 11.0.0.0
+network 192.168.3.0
+no auto
+
+access-list 10 deny 192.168.1.0 0.0.0.255
+access-list 10 permit any
+
+int f0/0
+ip access-group 10 out
+
+exit
+exit
+
+wr
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+TACACS+ (Can be done on Router or A Switch)
+------------------------------------------------
+----Switch Configuration-------
+
+en
+conf t
+host sw1
+enable password cisco
+int vlan 1
+ip add 10.0.0.1 255.0.0.0
+no shut
+exit
+
+aaa new-model
+aaa authentication login TAUTH group tacacs+ 
+aaa authentication login TAUTH group tacacs+ local
+
+tacacs-server host 10.0.0.100 key abc
+line vty 0 4
+login authentication TAUTH
+
+aaa authorization exec default group tacacs+
+aaa authorization exec default group tacacs+ local
+
+
+
+----Server Configuration-----
+Network Conifg---
+Client Name = router/Switch Name
+Cline IP	= Router/Switch(VLAN) IP
+Secret	= key
+
+USER Configuration-----
+Username / Password for login
+
+
+-------cmd commands-------
+
+telnet ip address

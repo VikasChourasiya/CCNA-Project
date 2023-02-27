@@ -1,0 +1,41 @@
+Switch Configuration
+
+Note:-  Switch basic command is like router commands
+
+-----Creating VLANs-------
+
+en
+conf t
+host s1
+
+vlan 10
+name accounts
+exit
+
+vlan 20
+name sales
+exit
+
+int f0/1
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/2
+switchport mode access
+switchport access vlan 10
+exit
+
+int f0/3
+switchport mode access
+switchport access vlan 20
+exit
+
+int f0/4
+switchport mode access
+switchport access vlan 20
+exit
+
+exit
+
+wr

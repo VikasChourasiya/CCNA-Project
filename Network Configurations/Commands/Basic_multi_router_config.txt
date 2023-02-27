@@ -1,0 +1,73 @@
+Basic Multiple Routers Configuration
+
+-------Router 1--------------
+enable
+conf t
+host R1
+int fa0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+exit
+
+wr
+
+-------Router 2--------------
+enable
+conf t
+host R2
+int fa0/0
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+
+int s0/0
+ip add 10.0.0.2 255.0.0.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.1 255.0.0.0
+no shut
+clock rate 64000
+band 64
+exit
+
+exit
+
+wr
+
+
+-------Router 3--------------
+enable
+conf t
+host R3
+int fa0/0
+ip add 192.168.3.1 255.255.255.0
+no shut
+exit
+
+int s0/1
+ip add 11.0.0.2 255.0.0.0
+no shut
+exit
+
+exit
+
+wr
+
+
+
+
+
+
+
+

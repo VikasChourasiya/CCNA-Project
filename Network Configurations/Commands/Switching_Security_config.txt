@@ -1,0 +1,27 @@
+Switchport Security Configuration
+
+there are three type of securities
+1. Shutdown: it will shutdwon the port
+2. Protect: it will not allow to do any think with switch
+3. Restricted: it will also not allow to do any think with 
+   switch but it will save the mac of the attackers machine.
+
+------Commands for port security------
+
+en
+conf t
+host S1
+
+int fa0/1
+switchport mode access
+switchport port-security
+switchport port-security maximum 1
+switchport port-security mac-address 00D0.BC68.31E9
+switchport port-security violation shutdown
+switchport port-security 
+exit
+
+exit
+wr
+
+

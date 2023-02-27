@@ -1,0 +1,17 @@
+Router SYSLOG Configuration
+
+------Commands for SYSLOG------
+
+en
+conf t
+host S1
+
+logging on
+logging host 192.168.1.100
+logging trap debugging
+service timestamps log datetime msec
+
+exit
+wr
+
+

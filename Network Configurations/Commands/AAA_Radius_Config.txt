@@ -1,0 +1,41 @@
+RADIUS (Can be done on Router or A Switch)
+------------------------------------------------
+----Router Configuration-------
+
+en
+conf t
+host Radius
+int f0/0
+ip add 10.0.0.1 255.0.0.0
+no shut
+exit
+
+enable password cisco
+ip domain-name sysap.com
+crypto key generate rsa
+
+2048
+
+ip ssh ver 2
+aaa new-model
+radius-server host 10.0.0.100 key 12345
+aaa authentication login ssh group radius local
+
+line vty 0 4
+login authentication ssh
+transport input ssh
+
+
+
+----Server Configuration-----
+Network Conifg---
+Client Name = router/Switch Name
+Cline IP	= Router/Switch(VLAN) IP
+Secret	= key
+
+USER Configuration-----
+Username / Password for login
+
+
+-----Cmd Command----
+ssh -l username router/vlan ip

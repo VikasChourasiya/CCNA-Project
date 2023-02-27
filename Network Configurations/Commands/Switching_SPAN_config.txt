@@ -1,0 +1,13 @@
+--------SPAN (Switched Port Analyser)-------
+
+en
+conf t
+host S1
+
+moniter session 1 source int fa0/2
+moniter session 1 destination int fa0/1
+
+exit
+
+wr
+
